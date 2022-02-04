@@ -1,19 +1,22 @@
 package adapter;
 
 import model.*;
+import scale.EditOptions;
 import exception.*;
 
 public abstract class ProxyAutomobile {
 	private static model.AutomobileTable automobileTable;
+	private static int threadNumber; // keep track of thread numbers
 	private util.FileIO autoutil;
 
-	ProxyAutomobile() {
+	protected ProxyAutomobile() {
 		autoutil = new util.FileIO();
 	}
 
 	public void init() {
 		// initialize the static automobile table
 		automobileTable = new AutomobileTable(64);
+		threadNumber = 0;
 	}
 
 	public boolean updateOptionSetName(String automobileKey, String optionSetName, String nameNew) {
@@ -31,6 +34,17 @@ public abstract class ProxyAutomobile {
 		model.Automobile automobileObject = automobileTable.getByKey(automobileKey);
 		if (automobileObject != null) {
 			automobileObject.setOptionSetOptionPrice(optionSetName, optionName, priceNew);
+			returnValue = true;
+		}
+		return returnValue;
+	}
+
+	public boolean updateOptionName(String automobileKey, String optionSetName, String optionName,
+		String optionNameNew) {
+		boolean returnValue = false;
+		model.Automobile automobileObject = automobileTable.getByKey(automobileKey);
+		if (automobileObject != null) {
+			automobileObject.setOptionSetOptionName(optionSetName, optionName, optionNameNew);
 			returnValue = true;
 		}
 		return returnValue;
@@ -95,7 +109,6 @@ public abstract class ProxyAutomobile {
 		boolean returnValue = false;
 		model.Automobile automobileObject;
 		automobileObject = automobileTable.getByKey(automobileKey);
-		// System.out.println(automobileKey); testing purposes only
 		if (automobileObject != null) {
 			automobileObject.setOptionSetChoice(optionSetName, optionName);
 			returnValue = true;
@@ -121,5 +134,15 @@ public abstract class ProxyAutomobile {
 			returnValue = automobileObject.getOptionSetChoicePrice(optionSetName);
 		}
 		return returnValue;
+	}
+
+	/* scale.Scaleable Implementation */
+	public void operation(int operationNumber, String[] inputArguments) {
+		/*
+		 * scale.EditOptions mimics Hello.java
+		 * It contains a switching statement to delegate the operation number
+		 */
+		EditOptions editObtionsObject = new scale.EditOptions(this, operationNumber, threadNumber++, inputArguments);
+		editObtionsObject.start();
 	}
 }
