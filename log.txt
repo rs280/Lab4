@@ -159,3 +159,18 @@
 [01/29/22 20:16:55] ERROR #500: Automobile added conficts with another automobile
 [01/29/22 20:16:55] ERROR #500: Automobile added conficts with another automobile
 [01/29/22 20:16:55] ERROR #500: Automobile added conficts with another automobile
+[02/03/22 21:31:32] WARNING #102: Missing name attribute for option in the automobile text file
+[02/03/22 21:31:32] WARNING #102: Missing name attribute for option in the automobile text file
+[02/03/22 21:31:32] WARNING #102: Missing name attribute for option in the automobile text file
+[02/03/22 21:31:32] ERROR #500: Automobile added conficts with another automobile
+[02/03/22 21:31:32] ERROR #500: Automobile added conficts with another automobile
+[02/03/22 21:31:32] ERROR #500: Automobile added conficts with another automobile
+[02/03/22 21:31:32] ERROR #500: Automobile added conficts with another automobile
+[02/03/22 21:31:32] ERROR #500: Automobile added conficts with another automobile
+[02/03/22 21:31:32] ERROR #500: Automobile added conficts with another automobile
+[02/03/22 21:31:32] ERROR #500: Automobile added conficts with another automobile
+[02/03/22 21:31:32] ERROR #500: Automobile added conficts with another automobile
+[02/03/22 21:31:32] ERROR #500: Automobile added conficts with another automobile
+[02/03/22 21:31:32] ERROR #500: Automobile added conficts with another automobile
+[02/03/22 21:31:32] ERROR #500: Automobile added conficts with another automobile
+[02/03/22 21:31:32] ERROR #500: Automobile added conficts with another automobile
