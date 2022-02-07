@@ -1,9 +1,3 @@
-//============================================================================
-// Name        : Assignment 1
-// Author      : Branden Lee
-// Date        : 4/24/2018
-// Description : Automobile class for the KBB website application
-//============================================================================
 package model;
 
 import java.lang.ArrayIndexOutOfBoundsException;
@@ -96,7 +90,7 @@ public class Automobile implements java.io.Serializable {
 	 * @return null if not found and option name if found */
 	public synchronized String getOptionSetChoiceName(String optionSetName) {
 		String returnValue = null;
-		OptionSet.Option optionObject = null;
+		Option optionObject = null;
 		int optionSetIndex;
 		try {
 			optionSetIndex = findOptionSetIndex(optionSetName);
@@ -115,7 +109,7 @@ public class Automobile implements java.io.Serializable {
 	 * @return null if not found and option price if found */
 	public synchronized Double getOptionSetChoicePrice(String optionSetName) {
 		Double returnValue = null;
-		OptionSet.Option optionObject = null;
+		Option optionObject = null;
 		int optionSetIndex;
 		try {
 			optionSetIndex = findOptionSetIndex(optionSetName);
@@ -132,8 +126,8 @@ public class Automobile implements java.io.Serializable {
 	/** Get the optionSet option choice by index
 	 * @param optionSetIndex optionSet index
 	 * @return null if not found and option object if found */
-	private synchronized OptionSet.Option getOptionSetChoiceByIndex(int optionSetIndex) throws AutoException {
-		OptionSet.Option returnValue = null;
+	private synchronized Option getOptionSetChoiceByIndex(int optionSetIndex) throws AutoException {
+		 Option returnValue = null;
 		int optionIndex;
 		try {
 			optionIndex = optionSetOptionChoice.get(optionSetIndex).intValue();
@@ -156,7 +150,7 @@ public class Automobile implements java.io.Serializable {
 		if (optionSetObject != null) {
 			// First check reserved attributes then the get optionSet option if not reserved
 			if (!isOptionSetReserved(optionSetObject)) {
-				OptionSet.Option optionObject = optionSetObject.findOption(optionName);
+				Option optionObject = optionSetObject.findOption(optionName);
 				if (optionObject != null) {
 					returnValue = optionObject.getName();
 				}
@@ -175,7 +169,7 @@ public class Automobile implements java.io.Serializable {
 		if (optionSetObject != null) {
 			// First check reserved attributes then the get optionSet option if not reserved
 			if (!isOptionSetReserved(optionSetObject)) {
-				OptionSet.Option optionObject = optionSetObject.findOption(optionName);
+				Option optionObject = optionSetObject.findOption(optionName);
 				if (optionObject != null) {
 					returnValue = optionObject.getPrice();
 				}
@@ -222,8 +216,8 @@ public class Automobile implements java.io.Serializable {
 		return optionSetObject;
 	}
 
-	private synchronized OptionSet.Option findOptionSetOption(int OptionSetIndex, String optionName) {
-		OptionSet.Option optionObject = null;
+	private synchronized Option findOptionSetOption(int OptionSetIndex, String optionName) {
+		Option optionObject = null;
 		OptionSet optionSetObject = getOptionSet(OptionSetIndex);
 		if (optionSetObject != null) {
 			optionObject = optionSetObject.findOption(optionName);
@@ -364,7 +358,7 @@ public class Automobile implements java.io.Serializable {
 			OptionSet optionSetObject = findOptionSet(optionSetName);
 			if (optionSetObject != null) {
 				// not reserved option set name
-				OptionSet.Option optionObject = optionSetObject.findOption(optionName);
+				Option optionObject = optionSetObject.findOption(optionName);
 				if (optionObject != null) {
 					optionObject.setName(nameNew);
 					returnValue = true;
@@ -388,7 +382,7 @@ public class Automobile implements java.io.Serializable {
 			OptionSet optionSetObject = findOptionSet(optionSetName);
 			if (optionSetObject != null) {
 				// not reserved option set name
-				OptionSet.Option optionObject = optionSetObject.findOption(optionName);
+				Option optionObject = optionSetObject.findOption(optionName);
 				if (optionObject != null) {
 					optionObject.setPrice(priceNew);
 					returnValue = true;
@@ -445,172 +439,5 @@ public class Automobile implements java.io.Serializable {
 		return stringBufferObject.toString();
 	}
 
-	protected class OptionSet implements java.io.Serializable {
-		private static final long serialVersionUID = 5846223453457830887L;
-		ArrayList<Option> optionList;
-		private String optionSetName;
-
-		/* Constructor */
-		protected OptionSet() {
-			init();
-			optionList = new ArrayList<Option>();
-		}
-
-		protected OptionSet(String name, int size) {
-			init();
-			optionSetName = name;
-			optionList = new ArrayList<Option>(12);
-		}
-
-		protected void init() {
-			optionSetName = "";
-		}
-
-		/* Getter */
-		protected String getName() {
-			return optionSetName;
-		}
-
-		/* get option by option index */
-		protected Option getOption(int optionIndex) throws AutoException {
-			Option optionObject = null;
-			try {
-				optionObject = optionList.get(optionIndex);
-			} catch (IndexOutOfBoundsException e) {
-				throw new exception.AutoException(803);
-			}
-			return optionObject;
-		}
-
-		protected int length() {
-			return optionList.size();
-		}
-
-		/** Find option by name
-		 * @param optionName option name
-		 * @return null if not found and option object if found */
-		protected Option findOption(String optionName) {
-			Option optionObject = null;
-			for (int i = 0; i < optionList.size(); i++) {
-				try {
-					if (optionList.get(i).getName().equals(optionName)) {
-						optionObject = optionList.get(i);
-					}
-				} catch (NullPointerException e) {
-					/* According to Carnegie Mellon University Software Engineering Institute You
-					 * should not catch a null pointer exception. BUT WE WILL FOR THE SAKE OF THE
-					 * ASSIGNMENT! */
-					break;
-				}
-			}
-			return optionObject;
-		}
-
-		/** Find option by name
-		 * @param optionName option name
-		 * @return -1 if not found and position index if found */
-		protected int findOptionIndex(String optionName) {
-			int returnValue, i, n;
-			returnValue = -1;
-			n = optionList.size();
-			for (i = 0; i < n; i++) {
-				try {
-					if (optionList.get(i).getName().equals(optionName)) {
-						returnValue = i;
-						break;
-					}
-				} catch (NullPointerException e) {
-					/* According to Carnegie Mellon University Software Engineering Institute You
-					 * should not catch a null pointer exception. BUT WE WILL FOR THE SAKE OF THE
-					 * ASSIGNMENT! */
-					break;
-				}
-			}
-			return returnValue;
-		}
-
-		/* Setter */
-		protected void setName(String name) {
-			optionSetName = name;
-		}
-
-		/** add an option
-		 * @param optionName option name
-		 * @param optionPrice option price **/
-		protected int addOption(String optionName, double optionPrice) {
-			optionList.add(new Option(optionName, optionPrice));
-			return optionList.size();
-		}
-
-		/* print() and toString() */
-		public void print() {
-			System.out.print(toString());
-		}
-
-		public String toString() {
-			StringBuffer stringBufferObject;
-			int i, n;
-			n = length();
-			stringBufferObject = new StringBuffer("");
-			stringBufferObject.append(getName()).append(": ");
-			for (i = 0; i < n; i++) {
-				try {
-					stringBufferObject.append(getOption(i).toString());
-				} catch (AutoException e) {
-					// nothing
-				}
-				if (i < n - 1) {
-					stringBufferObject.append(", ");
-				}
-			}
-			return stringBufferObject.toString();
-		}
-
-		protected class Option implements java.io.Serializable {
-			private static final long serialVersionUID = 2272307185575003314L;
-			private String optionName;
-			private double price;
-
-			/* Constructor */
-			protected Option() {
-				optionName = "";
-				price = 0;
-			}
-
-			protected Option(String name, double price_) {
-				optionName = name;
-				price = price_;
-			}
-
-			/* Getter */
-			protected String getName() {
-				return optionName;
-			}
-
-			protected double getPrice() {
-				return price;
-			}
-
-			/* Setter */
-			protected void setName(String name) {
-				optionName = name;
-			}
-
-			protected void setPrice(double price_) {
-				price = price_;
-			}
-
-			/* print() and toString() */
-			public void print() {
-				System.out.print(toString());
-			}
-
-			public String toString() {
-				StringBuffer stringBufferObject;
-				stringBufferObject = new StringBuffer("");
-				stringBufferObject.append(getName()).append(" for $").append(getPrice());
-				return stringBufferObject.toString();
-			}
-		}
-	}
+	
 }

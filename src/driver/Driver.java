@@ -1,9 +1,3 @@
-//============================================================================
-// Name        : Assignment 4
-// Author      : Branden Lee
-// Date        : 4/24/2018
-// Description : Driver class for the KBB website application
-//============================================================================
 
 package driver;
 
@@ -15,7 +9,7 @@ public class Driver {
 
 	public static void main(String[] args) {
 		/* This test driver is similar to Hello.java */
-		BuildAuto buildAutoInterface = new BuildAuto();
+		CreateAuto buildAutoInterface = new CreateAuto();
 		buildAutoInterface.init(); // only call this once
 		// Build Automobile Object from a file.
 		String FordZTWAutomobileKey = buildAutoInterface.buildAuto("FordZTW2021.txt");
@@ -38,9 +32,13 @@ public class Driver {
 			buildAutoInterface.operation(1, input3); // Updates option set name
 			buildAutoInterface.operation(3, input4); // set color choice
 			
+			
+			
 		} else {
 			System.out.println("Could not build automobile");
 		}
+		
+		
 		
 	}
 
